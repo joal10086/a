@@ -28,6 +28,7 @@ from . import view
 from . import testdb
  
 urlpatterns = [
+    url(r'^$', view.hello),
     url(r'^hello$', view.hello),
     url(r'^base$', view.base),
     url(r'^testdb$', testdb.testdb),

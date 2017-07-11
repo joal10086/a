@@ -3,6 +3,7 @@ Created on 3 Jul 2017
 
 @author: it
 '''
+# -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
  
@@ -10,7 +11,7 @@ def base(request):
     return render(request, 'base.html')
 
 
-# -*- coding: utf-8 -*-
+
  
 #from django.http import HttpResponse
 from django.shortcuts import render

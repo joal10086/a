@@ -4,7 +4,8 @@ Created on 18 Jul 2017
 @author: it
 '''
 
-from scipy.misc import imread, imsave, imresize
+from scipy.ndimage import *
+import scipy
 
 # Read an JPEG image into a numpy array
 img = imread('assets/cat.jpg')

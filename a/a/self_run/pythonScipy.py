@@ -1,26 +1,28 @@
-'''
-Created on 18 Jul 2017
+import numpy as np
+a = np.arange(15).reshape(3, 5)
 
-@author: it
-'''
+print(a)
 
-from scipy.ndimage import *
-import scipy
 
-# Read an JPEG image into a numpy array
-img = imread('assets/cat.jpg')
-print(img.dtype, img.shape)  # Prints "uint8 (400, 248, 3)"
 
-# We can tint the image by scaling each of the color channels
-# by a different scalar constant. The image has shape (400, 248, 3);
-# we multiply it by the array [1, 0.95, 0.9] of shape (3,);
-# numpy broadcasting means that this leaves the red channel unchanged,
-# and multiplies the green and blue channels by 0.95 and 0.9
-# respectively.
-img_tinted = img * [1, 0.95, 0.9]
-
-# Resize the tinted image to be 300 by 300 pixels.
-img_tinted = imresize(img_tinted, (300, 300))
-
-# Write the tinted image back to disk
-imsave('assets/cat_tinted.jpg', img_tinted)
+import numpy as np
+import matplotlib.pyplot as plt
+def mandelbrot( h,w, maxit=20 ):
+     """Returns an image of the Mandelbrot fractal of size (h,w)."""
+     y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
+     c = x+y*1j
+     z = c
+     divtime = maxit + np.zeros(z.shape, dtype=int)
+    
+     for i in range(maxit):
+         z = z**2 + c
+         diverge = z*np.conj(z) > 2**2            # who is diverging
+         div_now = diverge & (divtime==maxit)  # who is diverging now
+         divtime[div_now] = i                  # note when
+         z[diverge] = 2                        # avoid diverging too much
+    
+     return divtime
+plt.imshow(mandelbrot(400,400))
+plt.show()
+ 
+ 

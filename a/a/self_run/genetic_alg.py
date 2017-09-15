@@ -1,6 +1,6 @@
 '''
 Created on 11 Sep 2017
-
+求解函数 f(x) = x + 10*sin(5*x) + 7*cos(4*x) 在区间[0,9]的最大值。
 @author: it
 '''
 
@@ -12,7 +12,7 @@ import random
 import operator
 
 class GA():
-    def __init__(self, length, count):
+    def __init__(self, length, count): #GA(17, 300)
         # 染色体长度
         self.length = length
         # 种群中的染色体数量
@@ -29,7 +29,7 @@ class GA():
         self.crossover(parents)
         self.mutation(mutation_rate)
 
-    def gen_chromosome(self, length):
+    def gen_chromosome(self, length):  #length = 17
         """
         随机生成长度为length的染色体，每个基因的取值是0或1
         这里用一个bit表示一个基因
@@ -37,14 +37,15 @@ class GA():
         chromosome = 0
         for i in range(length):
             chromosome |= (1 << i) * random.randint(0, 1)
-            print("(1 << i) * random.randint(0, 1)",(1 << i) * random.randint(0, 1),"chromosome>>",chromosome)
+            #print("(1 << i) * random.randint(0, 1)",(1 << i) * random.randint(0, 1),"chromosome>>",chromosome)
+        #print (chromosome)
         return chromosome
 
-    def gen_population(self, length, count):
+    def gen_population(self, length, count):  #   17  300
         """
         获取初始种群（一个含有count个长度为length的染色体的列表）
         """
-        return [self.gen_chromosome(length) for i in range(count)]
+        return [self.gen_chromosome(length) for i in range(count)]  #长度为300的array
 
     def fitness(self, chromosome):
         """
@@ -52,6 +53,7 @@ class GA():
         因为是求最大值，所以数值越大，适应度越高
         """
         x = self.decode(chromosome)
+        print("x>>>",x)
         return x + 10*math.sin(5*x) + 7*math.cos(4*x)
 
     def selection(self, retain_rate, random_select_rate):
@@ -61,7 +63,9 @@ class GA():
         再进行随机选择，选出适应度虽然小，但是幸存下来的个体
         """
         # 对适应度从大到小进行排序
-        graded = [(self.fitness(chromosome), chromosome) for chromosome in self.population]
+        graded = [(self.fitness(chromosome), chromosome) for chromosome in self.population] #population=300
+        print("graded>>",graded)
+        print("aa")
         graded = [x[1] for x in sorted(graded, reverse=True)]
         # 选出适应性强的染色体
         retain_length = int(len(graded) * retain_rate)
